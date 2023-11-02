@@ -1,13 +1,17 @@
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static AtomicInteger count = new AtomicInteger();
     public static void main(String[]args) {
-        for(int i = 0; i < 100; i++)
-        {
+        Instant start = Instant.now();
+        for(int i = 0; i < 100; i++) {
             new countThread().start();
         }
-        System.out.println("" + count);
+        Instant end = Instant.now();
+        long dif = Duration.between(start,end).toMillis();
+        System.out.println("Count: " + count + " Time: " + dif + " ms");
     }
 
     public static class countThread extends Thread {
